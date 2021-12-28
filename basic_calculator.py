@@ -1,39 +1,65 @@
-#Here is the source code for the calculator program:
-
-# Python Program to Make a Simple Calculator
-
-def multipication(num1, num2):
-   return num1 * num2
+# basic_calculator.py
+print('basic_calculator.py')
 
 
-def addition(num1, num2):
-  return num1 + num2
+##################################################################################################
+########## CALCULATOR WITH INPUT CHECKING=========================================
+
+################# functions ################################
+def input_number(which_num):
+    check_val=False
+    try:
+        num_ip = float(input(f'Enter {which_num} number: ')) #check input can be converted to a number
+        #return num_ip, True
+    except:
+        print('Please enter a number')
+        num_ip = None
+        check_val = True
+    return num_ip, check_val
+
+def input_operator():
+    op_ip = input('Enter operator: a (add), s (subtract, m (multiply), d (divide) or x to (exit): ')
+    if op_ip in ['a','s','m','d','x']: #check input as required
+        return op_ip, False
+    else:
+        return op_ip, True
+
+def do_calc(op_in,f_num,s_num):
+    if op_in == 'a':
+        result , op_out = (f_num + s_num), 'added to'
+    elif op_in == 's':
+        result , op_out = (s_num - f_num), 'subtracted from'
+    elif op_in == 'm':
+        result , op_out = (f_num * s_num), 'multiplied by'
+    elif op_in == 'd':
+        if s_num == 0:
+            print('Unable to divide by 0, please try again') #check if dividing by zero
+            result , op_out = None, None
+        else:
+            result , op_out = (f_num / s_num), 'divided by'
+    return result, op_out
 
 
-def subtraction(num2, num1):
-   return num1 - num2
-
-
-def divide(num1, num1):
-   return num1 / num2
-
-
-while True:
-   value1 = int(input("Enter 1st number: "))
-   value2 = int(input("Enter 2nd number: '))
-
-   print("Select operation 1-Division, 2-Multiplication, 3-Addition, 4-Subtraction")
-
-   operation = int(input("Choose operation 1/2/3/4: ")
-   if operation == 1
-       print(value1, "/", value2, "=", divide(value1, value2))
-
-   elif operation == 2:
-      print(value1, "*", value2, "=", multiplication(value1, value2))
-   elif operation = 3:
-       print(value1, "+", value2, "=", addition(value1, value2))
-   elif operation == 4:
-       print(value1, "-", value2, "=", subtraction(value1, value2)))
-
-else:
-   print("Enter correct operation")
+#################### main #########################
+exit_no = True
+while exit_no:    #checks if exit (x) has been entered
+    #enter operator or exit
+    check_operator = True
+    while check_operator:
+        my_operator, check_operator = input_operator()
+        if my_operator == 'x':
+            exit_no = False
+    #enter first usernumber
+    check_value=True
+    while check_value and exit_no:
+        first_num, check_value = input_number('First')
+        #print('debugA', first_num, check_value)
+    #enter second number
+    check_value=True
+    while check_value and exit_no:
+        second_num, check_value = input_number('Second')
+    #enter operator or exit
+    if exit_no:
+        result, op_out = do_calc(my_operator, first_num, second_num)
+        if result != None:
+            print(f'{first_num} {op_out} {second_num} is: {result}')
